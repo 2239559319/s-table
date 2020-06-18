@@ -16,7 +16,7 @@ export default {
   methods: {
     submit() {
       sessionStorage.setItem('data', this.$refs.input.value)
-      this.$router.push('/')
+      this.$router.push('/table')
     }
   }
 }
