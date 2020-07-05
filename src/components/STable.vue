@@ -16,7 +16,7 @@
     <s-course
     v-for="v in courses"
     :key="v.data.place"
-    :color="colors[Math.floor(Math.random() * colors.length)]"
+    :color="color[Math.floor(Math.random() * color.length)]"
     :swidth="v.swidth"
     :slength="v.slength"
     :week="v.week"
@@ -24,6 +24,9 @@
     :data="v.data"
     :offset="v.offset ? v.offset : 0"
     ></s-course>
+    <div class="switch">
+      <button @click="changeColor">change color</button>
+    </div>
   </div>
 </template>
 
@@ -91,13 +94,25 @@ export default {
         }
       }
       return cs
+    },
+    color() {
+      return this.colorsLists[this.cur]
     }
   },
   data() {
     return {
-      colors: ['#add8e6', '#f2d7e1', '#b0e6d1', '#a9d6ff', '#f3b6a7'],
+      colorsLists: [
+        ['#add8e6', '#f2d7e1', '#b0e6d1', '#a9d6ff', '#f3b6a7'],
+        ['#A3DEEF', '#F7D1C4', '#F6C1D5', '#E5E2F5', '#D5E5B4']
+      ],
+      cur: 0,
       weekday: ['1', '2', '3', '4', '5', '6', '7'],
       classes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    }
+  },
+  methods: {
+    changeColor() {
+      this.cur = (this.cur + 1) % this.colorsLists.length
     }
   }
 }
@@ -119,5 +134,27 @@ export default {
 }
 .number {
   grid-row: 1 span;
+}
+.switch {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+}
+.switch > button {
+  padding: .3rem;
+  font-size: .8rem;
+  outline: none;
+  border: 1px solid rgb(119, 119, 119);
+  border-radius: 5px;
+  background: transparent;
+}
+.switch > button:hover {
+  background-color: rgb(220, 231, 255);
+  color: rgb(89, 176, 252);
+  border: 1px solid rgb(95, 179, 252);
+  cursor: pointer;
+}
+.switch > button:active {
+  border: 1px solid rgb(0, 134, 252);
 }
 </style>
